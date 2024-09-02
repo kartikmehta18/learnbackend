@@ -33,8 +33,8 @@ var arr =[1,2,3,4,5];
 //  console.log(res);
 
 async function getData(){
-    var a = await fetch('https://randomuser.me/api/')
+    var a = await fetch('https://api.digitallocker.gov.in/public/')
     var res = await a.json();
-    console.log(res.results[0].name);
+    console.log(res);
 }
 getData();
