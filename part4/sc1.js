@@ -7,9 +7,15 @@ next();
 });
 
 
-app.get('/', function (req, res) {
-    res.send('hey Dev i am kartik mern developer')
+app.get('/', function (req, res,next) {
+    // res.send('hey Dev i am kartik mern developer')
+   return next(new Error('Error in / route'));
    
   })
 
+  app.use((err, req, res, next) => {
+    console.error(err.stack)
+    res.status(500).send('Something broke!')
+  })
+  
 app.listen(3000)

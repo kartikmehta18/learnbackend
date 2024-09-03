@@ -26,6 +26,6 @@ app.get('/profile', function (req, res) {
 app.listen(3000)
 
 // npm i nodemon -g for auto restart server
-
+//nodemon sc1.js
 // server or routes ke bich me ho ta he middleware routes ke phle aata hai
 // 
