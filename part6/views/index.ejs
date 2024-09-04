@@ -4,8 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                clifford: '#da373d',
+              }
+            }
+          }
+        }
+      </script>
 </head>
 <body>
-   <h1>hey  <%= 2+25 %></h1>>
+   <h1 class="text-3xl font-bold underline bg-green-500">Naa bhai kuch to crazyy kar..😅  <%= 2+25 %></h1>>
+   <script src="/javascripts/script.js"></script>
 </body>
 </html>
