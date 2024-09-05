@@ -18,7 +18,7 @@
             name="title"
           />
           <textarea
-          required
+            required
             class="block px-5 py-2 bg-zinc-800 resize-none mt-4 w-full rounded-lg text-white outline-none"
             placeholder="write your task details"
             name="details"
@@ -31,22 +31,22 @@
         </form>
       </div>
       <div class="tasks flex gap-3 flex-wrap p-10">
-        <% if(files.length >0){
-          %> <% files.forEach(function(val){%>
-            <div class="task min-w-72 px-3 py-4 rounded-md bg-zinc-800">
-              <h1 class="text-white text-3xl tracking-tighter">
-                <%= val %>
-              </h1>
-              <a class="text-blue-500 inline-block mt-3" href="./files/<%= val %>">Read more</a>
-            </div> 
+        <% if(files.length >0){ %> <% files.forEach(function(val){%>
+        <div class="task min-w-72 px-3 py-4 rounded-md bg-zinc-800">
+          <h1 class="text-white text-3xl tracking-tighter"><%= val %></h1>
+          <div class="flex w-full justify-between mt-3 item-center">
+            <a class="text-blue-500 inline-block " href="/files/<%= val %>"
+              >Read more</a>
+              <a class="text-zinc-600" href="/edit/<%= val %>">edit filename</a>
+              <a class="text-green-600" href="/edittxt/<%= val %>">edit text</a>
+          </div>
+        </div>
 
-            <% }) %> <%
-        } else{%>
-          
-          <h3 class="text-zinc-600">No task yet</h3>
-          
+        <% }) %> <% } else{%>
+
+        <h3 class="text-zinc-600">No task yet</h3>
+
         <% } %>
-       
       </div>
     </div>
   </body>
