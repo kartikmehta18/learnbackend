@@ -10,7 +10,7 @@ next();
 app.get('/', function (req, res,next) {
     // res.send('hey Dev i am kartik mern developer')
    return next(new Error('Error in / route'));
-   
+    
   })
 
   app.use((err, req, res, next) => {
