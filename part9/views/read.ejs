@@ -8,19 +8,25 @@
     <title>read</title>
   </head>
   <body>
-    <div class="w-full h-full bg-zinc-900 text-white p-10">
-      <h1 class="text-3xl tracking-tighter mb-3">All User</h1>
-      <div class="users">
-        <div class="user max-w-72 p-4 bg-zinc-800 rounded-lg">
-          <div class="w-full h-52 rounded-lg bg-blue-300"></div>
-          <h3 class="text-xl tracking-tighter text-orange-500 mt-3">Kartik mehta</h3>
-          <h5 class="text-zinc-500">kartikmehta650@gmail.com</h5>
-          <div class="flex justify-between gap-3">
-            <a href="">✏️Edit User</a>
-            <a href="">❌delete User</a>
-
+    <div class="w-full h-full bg-zinc-900 text-white p-4">
+      <a href="/" class="text-blue-500">Home</a>
+      <h1 class="text-3xl tracking-tighter mb-3 mt-3">All Users</h1>
+      <div class="users flex flex-wrap gap-6">
+        <% data.forEach(function(user){ %>
+        <div class="user w-full sm:w-72 p-4 bg-zinc-800 rounded-lg mb-6">
+          <img src="<%= user.image %>" class="w-full rounded-lg bg-blue-300" />
+          <h3 class="text-xl tracking-tighter text-orange-500 mt-3">
+            <%= user.name %>
+          </h3>
+          <h5 class="text-zinc-500"><%= user.email %></h5>
+          <div class="flex justify-between gap-3 mt-3">
+            <a href="" class="text-green-500">✏️Edit User</a>
+            <a href="/delete/<%= user._id%>" class="text-red-500"
+              >❌Delete User</a
+            >
           </div>
         </div>
+        <% }) %>
       </div>
     </div>
   </body>

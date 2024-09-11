@@ -1,37 +1,45 @@
-// npm init -y
-// nom install express
-// npm i nodemon -g
-// nodemon script.js
-// npm i ejs
-// setup ejS AS A middelware for view engine
-
 const express = require("express");
 const app = express();
 const path = require("path");
+const userModel = require("./models/user");
 
-//render ejs file
 app.set("view engine", "ejs");
 
-// handel foe json data or form data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
+// Render index page
 app.get("/", function (req, res) {
-  //   res.send("hello devs");
   res.render("index");
 });
 
-app.get("/read", (req, res) => {
-  res.render("read");
+// Use POST method to create a new user
+app.post("/create", async (req, res) => {
+  try {
+    let { image, email, name } = req.body;
+    let newUser = await userModel.create({
+      image,
+      email,
+      name,
+    });
+    res.redirect("/read");
+    // res.json(newUser); // Send the created user back as JSON
+    console.log("Data created");
+  } catch (error) {
+    res.status(500).send("Error creating user");
+  }
 });
 
-app.get("/edit", (req, res) => {
-  res.render("edit");
+// Render read page
+app.get("/read", async (req, res) => {
+  let data = await userModel.find();
+  res.render("read", { data });
 });
 
-app.get("/delete", (req, res) => {
-  res.render("delete");
+app.get("/delete/:id", async (req, res) => {
+  let data = await userModel.findOneAndDelete({ _id: req.params.id });
+  res.redirect("/read");
 });
 
 app.listen(3000, function () {
