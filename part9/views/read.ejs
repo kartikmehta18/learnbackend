@@ -20,7 +20,7 @@
           </h3>
           <h5 class="text-zinc-500"><%= user.email %></h5>
           <div class="flex justify-between gap-3 mt-3">
-            <a href="" class="text-green-500">✏️Edit User</a>
+            <a href="/edit/<%= user._id%>" class="text-green-500">✏️Edit User</a>
             <a href="/delete/<%= user._id%>" class="text-red-500"
               >❌Delete User</a
             >
