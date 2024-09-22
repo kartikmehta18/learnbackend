@@ -1,7 +1,10 @@
 const mongoose = require("mongoose");
 
 const postSchema = new mongoose.Schema({
-  user: String,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+  },
   postdata: String,
   date: {
     type: Date,
@@ -9,4 +12,4 @@ const postSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("user", postSchema);
+module.exports = mongoose.model("post", postSchema);
