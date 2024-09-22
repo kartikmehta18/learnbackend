@@ -34,27 +34,25 @@ app.post("/create", (req, res) => {
   });
 });
 
-app.get("/login",async (req, res) => {
- res.render("login");
-
+app.get("/login", async (req, res) => {
+  res.render("login");
 });
 
-app.post("/login",async (req, res) => {
-    let user=await userModel.findOne({ email: req.body.email });
-    if(!user) return res.send("something went wrong");
+app.post("/login", async (req, res) => {
+  let user = await userModel.findOne({ email: req.body.email });
+  if (!user) return res.send("something went wrong");
 
-    bcrypt.compare(req.body.password, user.password, (err, result) =>{
-      if(!result) {
-        let token = jwt.sign({ email: req.body.email }, "secret");
-        res.cookie("token", token);
-        res.send("yes u can login");
-      }
-      else res.send("login succesfull");
-      // console.log(result);
-    })
-    // console.log(user);
-    // console.log(user.password , req.body.password);
-   });
+  bcrypt.compare(req.body.password, user.password, (err, result) => {
+    if (!result) {
+      let token = jwt.sign({ email: req.body.email }, "secret");
+      res.cookie("token", token);
+      res.send("yes u can login");
+    } else res.send("login succesfull");
+    // console.log(result);
+  });
+  // console.log(user);
+  // console.log(user.password , req.body.password);
+});
 
 app.get("/logout", (req, res) => {
   res.cookie("token", "");
