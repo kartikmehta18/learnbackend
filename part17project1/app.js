@@ -25,8 +25,12 @@ app.post("/register", async (req, res) => {
         name,
         age,
         email,
-        password,
+        password: hash,
       });
+
+     let token= jwt.sign({email : email,userid:user._id},"shh")
+     res.cookie("jwt",token);
+     res.send("User registered");
     });
   });
 });
