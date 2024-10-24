@@ -68,7 +68,7 @@ app.get("/logout", (req, res) => {
   res.cookie("token", "");
   res.redirect("/login");
 });
-//middleware
+//middleware = it is a check condition
 function isLoggedIn(req, res, next) {
   console.log(req.cookies);
   if(req.cookies.token === "") res.send("You must belogged in");
