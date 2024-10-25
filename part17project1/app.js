@@ -4,7 +4,7 @@ const userModel = require("./models/user");
 const postModel = require("./models/post");
 const cookieParser = require("cookie-parser");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken"); // Import jwt
+const jwt = require("jsonwebtoken"); // Import jwt 
 
 app.set("view engine", "ejs");
 app.use(express.json());
@@ -19,7 +19,7 @@ app.get("/login", (req, res) => {
 });
 
 app.get("/profile", isLoggedIn, async (req, res) => {
- let user= await userModel.findOne({ email: req.user.email });
+  let user = await userModel.findOne({ email: req.user.email });
   console.log(user);
   res.render("profile", { user });
 });
