@@ -14,13 +14,33 @@
         </div>
       <h3 class="text-3xl text-white mb-5"><span class="font-light">Hey,</span> <%= user.name %>👋</h3>
       <h5>you can create a new post.</h5>
-      <form action="">
-        <textarea  placeholder="What's on your mind ?"  class=" block p-2  outline-none w-1/3 resize-none bg-transparent border-2 border-zinc-800 rounded-md" name="text" id="" ></textarea>
+      <form method="post" action="/post">
+        <textarea  placeholder="What's on your mind ?"  class=" block p-2  outline-none w-1/3 resize-none bg-transparent border-2 border-zinc-800 rounded-md" name="content" id="" required ></textarea>
         <input class="px-3 py-2 bg-blue-500 block rounded-md mt-2 w-40" type="submit" value="Create post">
       </form>
 
       <div class=" posts mt-20">
-        <h3>Your Post</h3>
+        <h3 class="text-zinc-400">Your Posts.</h3>
+        <div class="postcontainer mt-5">
+          <% user.post.forEach(function(post){ %>
+            <div class="post  w-1/3 p-4 border-2 border-zinc-700 bg-zinc-800 rounded-md mb-4">
+              <h4 class="text-blue-500 mb-2">@<%= user.username %></h4>
+              <p class="text-sm tracking-tighter">hi</p>
+              <div class="btns flex mt-5 gap-4 ">
+                <a class="text-blue-500" href="">🩷Like</a>
+                <a class="text-blue-500" href="">✏️edit</a>
+              </div>
+            </div>
+           <% }) %>
+          <!-- <div class="post  w-1/3 p-4 border-2 border-zinc-700 bg-zinc-800 rounded-md mb-4">
+            <h4 class="text-blue-500 mb-2">@<%= user.username %></h4>
+            <p class="text-sm tracking-tighter">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem illum, dolorum.</p>
+            <div class="btns flex mt-5 gap-4 ">
+              <a class="text-blue-500" href="">🩷Like</a>
+              <a class="text-blue-500" href="">✏️edit</a>
+            </div>
+          </div> -->
+        </div>
       </div>
     </div>
 </html>
