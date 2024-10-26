@@ -18,12 +18,12 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
-
-
 app.get("/profile", isLoggedIn, async (req, res) => {
   try {
-    const user = await userModel.findOne({ email: req.user.email }).populate("post"); // Populate associated posts
-      // console.log(user);
+    const user = await userModel
+      .findOne({ email: req.user.email })
+      .populate("post"); // Populate associated posts
+    // console.log(user);
 
     if (!user) {
       return res.status(404).send("User not found");
@@ -36,7 +36,15 @@ app.get("/profile", isLoggedIn, async (req, res) => {
   }
 });
 
-
+app.get("/like/:id", isLoggedIn, async (req, res) => {
+  const post = await userModel
+    .findOne({_id: req.user.id })
+    .populate("user");
+  console.log(user);
+  post.likes.push(req.user.userid);
+   await  post.save();
+  res.render("profile", { user });
+});
 
 // app.get("/profile", isLoggedIn, async (req, res) => {
 //   const user = await userModel
@@ -48,9 +56,9 @@ app.get("/profile", isLoggedIn, async (req, res) => {
 // });
 
 app.post("/post", isLoggedIn, async (req, res) => {
-  let { content ,url} = req.body;
+  let { content, url } = req.body;
   let user = await userModel.findOne({ email: req.user.email });
-  let post = await postModel.create({ user: user._id, content ,url });
+  let post = await postModel.create({ user: user._id, content, url });
 
   user.post.push(post._id);
   await user.save();
