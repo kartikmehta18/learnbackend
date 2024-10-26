@@ -37,7 +37,7 @@
                   <a class="text-blue-500" href="/like/<%= post._id %>">
                     <%= post.likes.indexOf(user._id) === -1 ? "🩷 Like" : "👎 Unlike" %>
                   </a>
-                  <a class="text-blue-500" href="">✏️ Edit</a>
+                  <a class="text-blue-500" href="/edit/<%= post._id %>">✏️ Edit</a>
                 </div>
                 <img src="<%= post.url %>" class="h-[100px] w-[100px] rounded-lg bg-blue-300" />
               </div>

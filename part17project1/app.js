@@ -50,10 +50,10 @@ app.get("/like/:id", isLoggedIn, async (req, res) => {
   res.redirect("/profile");
 });
 
-app.get("/like/:id", isLoggedIn, async (req, res) => {
+app.get("/edit/:id", isLoggedIn, async (req, res) => {
   let post = await postModel.findOne({ _id: req.params.id }).populate("user");
 
-  res.render("edit");
+  res.render("edit" , {post});
 });
 
 // app.get("/profile", isLoggedIn, async (req, res) => {
@@ -64,6 +64,14 @@ app.get("/like/:id", isLoggedIn, async (req, res) => {
 
 //   res.render("profile", { user});
 // });
+
+app.post("/update/:id", isLoggedIn, async (req, res) => {
+  let post = await postModel.findOneAndUpdate({ _id: req.params.id } , {content : req.body.content})
+  
+  res.redirect("/profile");
+});
+
+
 
 app.post("/post", isLoggedIn, async (req, res) => {
   let { content, url } = req.body;
