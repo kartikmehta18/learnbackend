@@ -18,18 +18,39 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
+
+
 app.get("/profile", isLoggedIn, async (req, res) => {
-  let user = await userModel.findOne({ email: req.user.email }).populate("post");
-  
-  res.render("profile", { user });
+  try {
+    const user = await userModel.findOne({ email: req.user.email }).populate("post"); // Populate associated posts
+      // console.log(user);
+
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+
+    res.render("profile", { user }); // Pass the user to the template
+  } catch (error) {
+    console.error("Error fetching profile:", error);
+    res.status(500).send("An error occurred while fetching profile data");
+  }
 });
 
+
+
+// app.get("/profile", isLoggedIn, async (req, res) => {
+//   const user = await userModel
+//     .findOne({ email: req.user.email })
+//     .populate("post");
+//     console.log(user);
+
+//   res.render("profile", { user});
+// });
+
 app.post("/post", isLoggedIn, async (req, res) => {
-  let {content}=req.body;
+  let { content ,url} = req.body;
   let user = await userModel.findOne({ email: req.user.email });
- let post= await postModel.create({ user: user._id ,
-    content,
-  });
+  let post = await postModel.create({ user: user._id, content ,url });
 
   user.post.push(post._id);
   await user.save();
