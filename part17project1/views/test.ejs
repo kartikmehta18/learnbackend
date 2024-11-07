@@ -1,11 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./stylesheets/style.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Create User</title>
+  </head>
+  <body class="w-full h-full bg-zinc-900 text-white">
+    <div class="w-full h-full bg-zinc-900 text-white p-4">
+      <h3 class="text-3xl text-white mb-5">Upload files</h3>
+      <form action="/upload" method="post" enctype="multipart/form-data">
+        <input
+          type="file"
+          name="image"
+          placeholder="file upload"
+          class="px-3 py-2 rounded-md outline-none bg-transparent border-2 border-zinc-800"
+        />
+       
+        <input
+          type="submit"
+          value="Upload image"
+          class="px-3 py-2 rounded-md outline-none bg-blue-500 border-2"
+        />
+      </form>
+    </div>
+  </body>
 </html>
