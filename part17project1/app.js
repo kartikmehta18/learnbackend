@@ -4,15 +4,17 @@ const userModel = require("./models/user");
 const postModel = require("./models/post");
 const cookieParser = require("cookie-parser");
 const bcrypt = require("bcrypt");
+const upload = require("./utils/multer");
 const jwt = require("jsonwebtoken"); // Import jwt
 // const crypto = require("crypto");
-// const path = require("path");
+const path = require("path");
 // const multer = require("multer");
 
 app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname ,"public")));
 
 // const storage = multer.diskStorage({
 //   destination: function (req, file, cb) {
@@ -24,13 +26,11 @@ app.use(cookieParser());
 //       const fn =  bytes.toString('hex') + path.extname(file.originalname)
 //       cb(null, fn)
 //     })
-    
+
 //   }
 // })
 
 // const upload = multer({ storage: storage })
-
-
 
 app.get("/", (req, res) => {
   res.render("index");
@@ -39,13 +39,14 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
-app.get("/test",(req,res)=>{
-  res.render("test");
-})
+app.get("/profile/upload", (req, res) => {
+  res.render("profileupload");
+});
 
-app.post("/upload", upload.single  ("image"),(req,res)=>{
-  console.log(req.file);
-})
+
+app.post("/upload", isLoggedIn, upload.single("image") ,(req, res) => {
+       
+});
 
 app.get("/profile", isLoggedIn, async (req, res) => {
   try {
@@ -82,7 +83,7 @@ app.get("/like/:id", isLoggedIn, async (req, res) => {
 app.get("/edit/:id", isLoggedIn, async (req, res) => {
   let post = await postModel.findOne({ _id: req.params.id }).populate("user");
 
-  res.render("edit" , {post});
+  res.render("edit", { post });
 });
 
 // app.get("/profile", isLoggedIn, async (req, res) => {
@@ -95,12 +96,13 @@ app.get("/edit/:id", isLoggedIn, async (req, res) => {
 // });
 
 app.post("/update/:id", isLoggedIn, async (req, res) => {
-  let post = await postModel.findOneAndUpdate({ _id: req.params.id } , {content : req.body.content})
-  
+  let post = await postModel.findOneAndUpdate(
+    { _id: req.params.id },
+    { content: req.body.content }
+  );
+
   res.redirect("/profile");
 });
-
-
 
 app.post("/post", isLoggedIn, async (req, res) => {
   let { content, url } = req.body;
