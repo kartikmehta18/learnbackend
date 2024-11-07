@@ -14,7 +14,7 @@ app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname ,"public")));
+app.use(express.static(path.join(__dirname, "public")));
 
 // const storage = multer.diskStorage({
 //   destination: function (req, file, cb) {
@@ -43,9 +43,11 @@ app.get("/profile/upload", (req, res) => {
   res.render("profileupload");
 });
 
-
-app.post("/upload", isLoggedIn, upload.single("image") ,(req, res) => {
-       
+app.post("/upload", isLoggedIn, upload.single("image"), async (req, res) => {
+  let user = await userModel.findOne({ email: req.user.email });
+  user.profilepic =req.file.filename;
+  await user.save();
+  res.redirect("/profile");
 });
 
 app.get("/profile", isLoggedIn, async (req, res) => {
