@@ -40,7 +40,16 @@ module.exports.loginUsers = async function (req, res) {
         .status(401)
         .send("User does not exist / email  password incorrect");
     bcrypt.compare(password, user.password, function (err, result) {
-      res.send(result);
+      // res.send(result);
+      if (result) {
+        let token = generateToken(user);
+        res.cookie("token", token);
+        res.status(200).send("User Logged in");
+      }else{
+        return res
+        .status(401)
+        .send("User does not exist / email  password incorrect");
+      }
     });
   } catch (error) {}
 };
