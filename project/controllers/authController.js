@@ -22,7 +22,7 @@ module.exports.registerUsers = async function (req, res) {
           // let token = jwt.sign({ email, id: user._id }, "hhh");  we can also add {expiresIn: "1h"}
           res.cookie("token", token);
           // res.send("User Registered");
-          res.status(200).send("User Registered", user);
+          res.status(200).send( user);
         }
       });
     });
@@ -52,4 +52,15 @@ module.exports.loginUsers = async function (req, res) {
       }
     });
   } catch (error) {}
+};
+
+
+module.exports.logoutUsers = function (req, res) {
+  try {
+    res.cookie("token", ""); // Immediately expires the cookie
+    res.redirect("/");
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Error logging out");
+  }
 };

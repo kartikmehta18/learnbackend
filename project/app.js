@@ -37,6 +37,7 @@ app.use(flash());
 app.use("/owners", ownerRouter);
 app.use("/products", productRouter);
 app.use("/users", userRouter);
+app.use("/", indexRouter);
 
 app.listen(3000, function () {
   console.log("server is running on port 3000");

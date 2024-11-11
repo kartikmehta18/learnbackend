@@ -6,13 +6,13 @@ const bcrypt = require("bcrypt");
 const {generateToken}= require("../utils/generateToken")
 const {registerUsers} = require("../controllers/authController")
 const{loginUsers} = require("../controllers/authController")
-
+const{logoutUsers} = require("../controllers/authController")
 router.get("/", function (req, res) {
   res.send("user Router");
 });   
 
 router.post("/register",registerUsers )
 router.post("/login",loginUsers )
-// router.post("/logout",loginUsers )
+router.get("/logout",logoutUsers )
 
 module.exports = router;
