@@ -10,12 +10,18 @@ if (process.env.NODE_ENV === "development") {
     if (owners.length > 0) {
       return res.status(503).send("Owner already exists");
     }
-    res.send("we can creat Owner ");
+    let { fullname, email, password } = req.body;
+    let createdOwner = await ownerModel.create({
+      fullname,
+      email,
+      password,
+    });
+    res.status(200).send(createdOwner);
   });
 }
 
 router.get("/", function (req, res) {
-  res.send("Owner Routerrr");
+  res.send("Owner Router");
 });
 //$env:NODE_ENV="development"
 // console.log(process.env.NODE_ENV);
