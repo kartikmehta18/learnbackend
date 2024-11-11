@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const ownerModel = require("../models/owners-model");
-
+//dev check
 if (process.env.NODE_ENV === "development") {
   // console.log("This is working ");
 

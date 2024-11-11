@@ -5,6 +5,8 @@ const path = require("path");
 const ownerRouter = require("./routes/ownerRouter");
 const productRouter = require("./routes/productRouter");
 const userRouter = require("./routes/userRouter");
+// env file use me aa e gi is se
+require("dotenv").config();
 
 const db = require("./config/mongoose-connection");
 
