@@ -2,7 +2,7 @@ const isLoggedin = require("../middlewares/isloggedin");
 
 const express = require("express");
 const router = express.Router();
-const ProductModel = require("../models/product-model"); // Assuming your product model file name
+const productModel = require("../models/product-model"); // Assuming your product model file name
 
 router.get("/", function (req, res) {
   let error = req.flash("error");
@@ -12,7 +12,7 @@ router.get("/", function (req, res) {
 router.get("/shop", isLoggedin, async (req, res) => {
   try {
     // Fetch products from the database
-    const products = await ProductModel.find(); // Adjust based on your schema
+    const products = await productModel.find(); // Adjust based on your schema
 
     // Render the shop view with products data
     res.render("shop", { products });
