@@ -1,16 +1,29 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
+import axios from 'axios'
 
 function App() {
   const [jokes, setJokes] = useState([])
+  useEffect(() => {
 
-  const getJokes = async () => {
-    const response = await fetch("http://localhost:3000/jokes")
-    const data = await response.json();
-    console.log(data);
-    setJokes(data);
-   
-  }
+    // in this we got cores error so we use vite.config.js file to solve this error proxy define / npm corse in backend
+    axios.get("/api/jokes")
+      .then((response) => {
+        console.log(response.data);
+        setJokes(response.data)
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }, []);
+
+  // const getJokes = async () => {
+  //   const response = await fetch("http://localhost:3000/jokes")
+  //   const data = await response.json();
+  //   console.log(data);
+  //   setJokes(data);
+
+  // }
   // getJokes();
 
   return (
@@ -18,11 +31,13 @@ function App() {
       <p>jokes: {jokes.length}</p>
 
       {
-        jokes.map((jokes, index) => {
+        jokes.map((joke, index) => {
+        return(
           <div key={index}>
-            <p>jokes id : {jokes.id}</p>
-            <p>jokes: {jokes.content}</p>
-          </div>
+          <p>jokes id : {joke.id}</p>
+          <p>jokes: {joke.content}</p>
+        </div>
+        );
         })
       }
     </>

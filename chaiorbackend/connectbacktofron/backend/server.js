@@ -2,14 +2,16 @@ import express from "express";
 
 const app = express();
 const port = process.env.PORT || 3000;
+//bad practice 
+app.use(express.static("dist"));
 
-// app.get("/", (req, res) => {
-//   res.send("Hello World");
-// });
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
 
 // get a list of 5 jokes
 
-app.get("/jokes", (req, res) => {
+app.get("/api/jokes", (req, res) => {
   const jokes = [
     {
       id: 1,
