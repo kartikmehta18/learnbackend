@@ -1,54 +1,26 @@
 //require("dotenv").config({path: "./env"});
 import dotenv from "dotenv";
 import connectDB from "./db/index.js";
-import express from "express";
+// import express from "express";
 import { config } from "dotenv";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
-const app = express();
+import { app } from "./app.js";
+// const app = express();
 const __dirname = dirname(fileURLToPath(import.meta.url));
 config();
 
 dotenv.config({ path: "./env" });
 
-
-connectDB().then(() => {
-  app.listen(process.env.PORT || 8000, () => {
-    console.log("server is running on port", process.env.PORT);
-  });
-})
-.catch((error) => {
+connectDB()
+  .then(() => {
+    app.listen(process.env.PORT || 8000, () => {
+      console.log("server is running on port", process.env.PORT);
+    });
+  })
+  .catch((error) => {
     console.log("ERROR mongo db connections failed", error);
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  });
 
 // (async () => {
 //   try {
