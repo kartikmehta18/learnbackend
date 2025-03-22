@@ -10,7 +10,7 @@ import { app } from "./app.js";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 config();
 
-dotenv.config({ path: "./env" });
+dotenv.config({ path: "./.env" });
 
 connectDB()
   .then(() => {

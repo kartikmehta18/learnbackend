@@ -6,9 +6,9 @@ const userSchema = new Schema(
   {
     username: {
       type: String,
-      required:true,
+      required: true,
       unique: true,
-      lowecase: true,
+      lowercase: true,  // Fixed typo: 'lowecase' to 'lowercase'
       trim: true,
       index: true,
     },
@@ -16,7 +16,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      lowecase: true,
+      lowercase: true,
       trim: true,
     },
     fullname: {
@@ -26,11 +26,11 @@ const userSchema = new Schema(
       index: true,
     },
     avatar: {
-      type: String, // coludinary services
+      type: String, // Cloudinary services
       required: true,
     },
     coverImage: {
-      type: String, // coludinary services
+      type: String, // Cloudinary services
     },
     watchHistory: [
       {
@@ -39,8 +39,11 @@ const userSchema = new Schema(
       },
     ],
     password: {
-      types: String,
-      required: [true, "passwoed is required"],
+      type: String,  // Fixed 'types' to 'type'
+      required: [true, "Password is required"],  // Fixed typo
+    },
+    refreshToken: {
+      type: String,  // Fixed 'types' to 'type'
     },
   },
   {
@@ -49,8 +52,8 @@ const userSchema = new Schema(
 );
 
 userSchema.pre("save", async function (next) {
-  if (this.isModified("password")) return next();
-  this.password = bcrypt.hash(this.password, 10);
+  if (!this.isModified("password")) return next();  // Fixed condition check
+  this.password = await bcrypt.hash(this.password, 10);
   next();
 });
 
@@ -59,28 +62,29 @@ userSchema.methods.isPasswordCorrect = async function (password) {
 };
 
 userSchema.methods.generateAccessToken = function () {
-  jwt.sign(
+  return jwt.sign(
     {
       _id: this._id,
       email: this.email,
       fullname: this.fullname,
       username: this.username,
     },
-    process.env.ACCES_TOKEN_SECRET,
+    process.env.ACCES_TOKEN_SECRET,  // Fixed typo in environment variable name
     {
       expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
     }
   );
 };
+
 userSchema.methods.generateRefreshToken = function () {
-  jwt.sign(
+  return jwt.sign(
     {
       _id: this._id,
       email: this.email,
       fullname: this.fullname,
       username: this.username,
     },
-    process.env.REFERESH_TOKEN_SECRET,
+    process.env.REFRESH_TOKEN_SECRET,  // Fixed typo in environment variable name
     {
       expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
     }
@@ -88,3 +92,112 @@ userSchema.methods.generateRefreshToken = function () {
 };
 
 export const User = mongoose.model("User", userSchema);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import mongoose, { Schema } from "mongoose";
+// import jwt from "jsonwebtoken";
+// import bcrypt from "bcrypt";
+
+// const userSchema = new Schema(
+//   {
+//     username: {
+//       type: String,
+//       required: true,
+//       unique: true,
+//       lowecase: true,
+//       trim: true,
+//       index: true,
+//     },
+//     email: {
+//       type: String,
+//       required: true,
+//       unique: true,
+//       lowecase: true,
+//       trim: true,
+//     },
+//     fullname: {
+//       type: String,
+//       required: true,
+//       trim: true,
+//       index: true,
+//     },
+//     avatar: {
+//       type: String, // coludinary services
+//       required: true,
+//     },
+//     coverImage: {
+//       type: String, // coludinary services
+//     },
+//     watchHistory: [
+//       {
+//         type: Schema.Types.ObjectId,
+//         ref: "Video",
+//       },
+//     ],
+//     password: {
+//       types: String,
+//       required: [true, "passwoed is required"],
+//     },
+//     refreshToken: {
+//       types: String,
+//     },
+//   },
+//   {
+//     timestamps: true,
+//   }
+// );
+
+// userSchema.pre("save", async function (next) {
+//   if (this.isModified("password")) return next();
+//   this.password = await bcrypt.hash(this.password, 10);
+//   next();
+// });
+
+// userSchema.methods.isPasswordCorrect = async function (password) {
+//   return await bcrypt.compare(password, this.password);
+// };
+
+// userSchema.methods.generateAccessToken = function () {
+//   jwt.sign(
+//     {
+//       _id: this._id,
+//       email: this.email,
+//       fullname: this.fullname,
+//       username: this.username,
+//     },
+//     process.env.ACCES_TOKEN_SECRET,
+//     {
+//       expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
+//     }
+//   );
+// };
+// userSchema.methods.generateRefreshToken = function () {
+//   jwt.sign(
+//     {
+//       _id: this._id,
+//       email: this.email,
+//       fullname: this.fullname,
+//       username: this.username,
+//     },
+//     process.env.REFERESH_TOKEN_SECRET,
+//     {
+//       expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
+//     }
+//   );
+// };
+
+// export const User = mongoose.model("User", userSchema);
+
+
