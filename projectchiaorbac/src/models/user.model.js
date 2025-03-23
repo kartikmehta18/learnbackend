@@ -39,11 +39,11 @@ const userSchema = new Schema(
       },
     ],
     password: {
-      type: String,  // Fixed 'types' to 'type'
+      type: String, 
       required: [true, "Password is required"],  // Fixed typo
     },
     refreshToken: {
-      type: String,  // Fixed 'types' to 'type'
+      type: String,  
     },
   },
   {
